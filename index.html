@@ -119,7 +119,13 @@
 
       if (checkWin(user, comp) == false){
         //attack
-        if(tL == comp && tR == comp && tM == ""){
+        if (arr.length == 8 && (tL == user || tR == user || bR == user || bL == user)){
+          $("#mM").html(comp);
+          var deleteIndexComp = arr.indexOf("#mM");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(tL == comp && tR == comp && tM == ""){
           $("#tM").html(comp);
           var deleteIndexComp = arr.indexOf("#tM");
           arr.splice(deleteIndexComp, 1);
@@ -211,6 +217,19 @@
         }
         else if(tR == comp && mR == comp && bR == ""){
           $("#bR").html(comp);
+          var deleteIndexComp = arr.indexOf("#bR");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        //cope here
+        else if(bR == comp && mR == comp && tR == ""){
+          $("#tR").html(comp);
+          var deleteIndexComp = arr.indexOf("#tR");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(tR == comp && bR == comp && mR == ""){
+          $("#mR").html(comp);
           var deleteIndexComp = arr.indexOf("#bR");
           arr.splice(deleteIndexComp, 1);
           console.log(arr);
@@ -344,6 +363,18 @@
         }
         else if(tR == user && mR == user && bR == ""){
           $("#bR").html(comp);
+          var deleteIndexComp = arr.indexOf("#bR");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(bR == user && mR == user && tR == ""){
+          $("#tR").html(comp);
+          var deleteIndexComp = arr.indexOf("#tR");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(tR == user && bR == user && mR == ""){
+          $("#mR").html(comp);
           var deleteIndexComp = arr.indexOf("#bR");
           arr.splice(deleteIndexComp, 1);
           console.log(arr);
