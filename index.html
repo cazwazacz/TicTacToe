@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Tic Tac Toe</title>
+  <script src="jquery-3.1.1.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+  <link rel="stylesheet" href="jquery-ui.css">
+
+</head>
+<body>
+  <style>
+  body {
+    background-color: #282828;
+    padding-top: 50px;
+  }
+  #bg {
+    height: 600px;
+    width: 600px;
+    background-color: #d6e5ff;
+    margin: 0 auto;
+
+  }
+  .square {
+    background-color: #282828;
+    height: 180px;
+    width: 180px;
+    float: left;
+    padding-bottom: 35px;
+
+    margin: 10px 10px 10px 10px;
+  }
+  .XO {
+    font-size: 150px;
+    text-align: center;
+    line-height: 50px;
+    font-family: 'Quicksand', sans-serif;
+    color: #ededed;
+  }
+  button {
+    outline:none;
+    border-style:none;
+  }
+
+  </style>
+  <script>
+  $(document).ready(function(){
+
+    var user;
+    var comp;
+
+    $( "#dialog" ).dialog({
+    dialogClass: "no-close",
+    buttons: [
+    {
+      text: "X",
+      click: function() {
+        user = "x";
+        comp = "o";
+        $( this ).dialog( "close" );
+      }
+    },
+    {
+      text: "O",
+      click: function() {
+        user = "o";
+        comp = "x";
+        $( this ).dialog( "close" );
+      }
+    }
+  ]
+});
+
+    var corners = ["#tL",
+    "#tR",
+    "#bL",
+    "#bR"];
+
+    var arr = ["#tL",
+    "#tM",
+    "#tR",
+    "#mL",
+    "#mM",
+    "#mR",
+    "#bL",
+    "#bM",
+    "#bR"];
+
+
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min)) + min;
+     }
+
+    function userTurn(divId, buttonId, array){
+      var inner_text=$.trim($(this).text());
+      if (inner_text == ""){
+      $(divId).html(user);
+      }
+      $(buttonId).off();
+      var deleteIndex = array.indexOf(divId);
+      array.splice(deleteIndex, 1);
+    }
+    function compTurn(){
+      var tL = $.trim($("#tL").text());
+      var tM = $.trim($("#tM").text());
+      var tR = $.trim($("#tR").text());
+      var mL = $.trim($("#mL").text());
+      var mM = $.trim($("#mM").text());
+      var mR = $.trim($("#mR").text());
+      var bL = $.trim($("#bL").text());
+      var bM = $.trim($("#bM").text());
+      var bR = $.trim($("#bR").text());
+
+      var randInt = arr[getRandomInt(0, arr.length)];
+      var randSq = $.trim($(randInt).text());
+
+      if (checkWin(user, comp) == false){
+        //attack
+        if(tL == comp && tR == comp && tM == ""){
+          $("#tM").html(comp);
+          var deleteIndexComp = arr.indexOf("#tM");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(tL == comp && tM == comp && tR == ""){
+          $("#tR").html(comp);
+          var deleteIndexComp = arr.indexOf("#tR");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(tR == comp && tM == comp && tL == ""){
+          $("#tL").html(comp);
+          var deleteIndexComp = arr.indexOf("#tL");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(mL == comp && mR == comp && mM == ""){
+          $("#mM").html(comp);
+          var deleteIndexComp = arr.indexOf("#mM");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(mL == comp && mM == comp && mR == ""){
+          $("#mR").html(comp);
+          var deleteIndexComp = arr.indexOf("#mR");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(mR == comp && mM == comp && mL == ""){
+          $("#mL").html(comp);
+          var deleteIndexComp = arr.indexOf("#mL");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(bL == comp && bR == comp && bM == ""){
+          $("#bM").html(comp);
+          var deleteIndexComp = arr.indexOf("#bM");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(bL == comp && bM == comp && bR == ""){
+          $("#bR").html(comp);
+          var deleteIndexComp = arr.indexOf("#bR");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if (bR == comp && bM == comp && bL == ""){
+          $("#bL").html(comp);
+          var deleteIndexComp = arr.indexOf("#bL");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(tL == comp && mL == comp && bL == ""){
+          $("#bL").html(comp);
+          var deleteIndexComp = arr.indexOf("#bL");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(mL == comp && bL == comp && tL == ""){
+          $("#tL").html(comp);
+          var deleteIndexComp = arr.indexOf("#tL");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if (tL == comp && bL == comp && mL == ""){
+          $("#mL").html(comp);
+          var deleteIndexComp = arr.indexOf("#mL");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(tM == comp && mM == comp && bM == ""){
+          $("#bM").html(comp);
+          var deleteIndexComp = arr.indexOf("#bM");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(mM == comp && bM == comp && tM == ""){
+          $("#tM").html(comp);
+          var deleteIndexComp = arr.indexOf("#tM");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if (tM == comp && bM == comp && mM == ""){
+          $("#mM").html(comp);
+          var deleteIndexComp = arr.indexOf("#mM");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(tR == comp && mR == comp && bR == ""){
+          $("#bR").html(comp);
+          var deleteIndexComp = arr.indexOf("#bR");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(tL == comp && mM == comp && bR == ""){
+          $("#bR").html(comp);
+          var deleteIndexComp = arr.indexOf("#bR");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if (bM == comp && bR == comp && tL == ""){
+          $("#tL").html(comp);
+          var deleteIndexComp = arr.indexOf("#tL");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if (tL == comp && bR == comp && mM == ""){
+          $("#mM").html(comp);
+          var deleteIndexComp = arr.indexOf("#mM");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(tR == comp && mM == comp && bL == ""){
+          $("#bL").html(comp);
+          var deleteIndexComp = arr.indexOf("#bL");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if (mM == comp && bL == comp && tR == ""){
+          $("#tR").html(comp);
+          var deleteIndexComp = arr.indexOf("#tR");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if (tR == comp && bL == comp && mM == ""){
+          $("#mM").html(comp);
+          var deleteIndexComp = arr.indexOf("#mM");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        //start of defence
+        else if(tL == user && tR == user && tM == ""){
+          $("#tM").html(comp);
+          var deleteIndexComp = arr.indexOf("#tM");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(tL == user && tM == user && tR == ""){
+          $("#tR").html(comp);
+          var deleteIndexComp = arr.indexOf("#tR");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(tR == user && tM == user && tL == ""){
+          $("#tL").html(comp);
+          var deleteIndexComp = arr.indexOf("#tL");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(mL == user && mR == user && mM == ""){
+          $("#mM").html(comp);
+          var deleteIndexComp = arr.indexOf("#mM");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(mL == user && mM == user && mR == ""){
+          $("#mR").html(comp);
+          var deleteIndexComp = arr.indexOf("#mR");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(mR == user && mM == user && mL == ""){
+          $("#mL").html(comp);
+          var deleteIndexComp = arr.indexOf("#mL");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(bL == user && bR == user && bM == ""){
+          $("#bM").html(comp);
+          var deleteIndexComp = arr.indexOf("#bM");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(bL == user && bM == user && bR == ""){
+          $("#bR").html(comp);
+          var deleteIndexComp = arr.indexOf("#bR");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if (bR == user && bM == user && bL == ""){
+          $("#bL").html(comp);
+          var deleteIndexComp = arr.indexOf("#bL");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(tL == user && mL == user && bL == ""){
+          $("#bL").html(comp);
+          var deleteIndexComp = arr.indexOf("#bL");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(mL == user && bL == user && tL == ""){
+          $("#tL").html(comp);
+          var deleteIndexComp = arr.indexOf("#tL");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if (tL == user && bL == user && mL == ""){
+          $("#mL").html(comp);
+          var deleteIndexComp = arr.indexOf("#mL");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(tM == user && mM == user && bM == ""){
+          $("#bM").html(comp);
+          var deleteIndexComp = arr.indexOf("#bM");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(mM == user && bM == user && tM == ""){
+          $("#tM").html(comp);
+          var deleteIndexComp = arr.indexOf("#tM");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if (tM == user && bM == user && mM == ""){
+          $("#mM").html(comp);
+          var deleteIndexComp = arr.indexOf("#mM");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(tR == user && mR == user && bR == ""){
+          $("#bR").html(comp);
+          var deleteIndexComp = arr.indexOf("#bR");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(tL == user && mM == user && bR == ""){
+          $("#bR").html(comp);
+          var deleteIndexComp = arr.indexOf("#bR");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if (bM == user && bR == user && tL == ""){
+          $("#tL").html(comp);
+          var deleteIndexComp = arr.indexOf("#tL");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if (tL == user && bR == user && mM == ""){
+          $("#mM").html(comp);
+          var deleteIndexComp = arr.indexOf("#mM");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if(tR == user && mM == user && bL == ""){
+          $("#bL").html(comp);
+          var deleteIndexComp = arr.indexOf("#bL");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if (mM == user && bL == user && tR == ""){
+          $("#tR").html(comp);
+          var deleteIndexComp = arr.indexOf("#tR");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+        else if (tR == user && bL == user && mM == ""){
+          $("#mM").html(comp);
+          var deleteIndexComp = arr.indexOf("#mM");
+          arr.splice(deleteIndexComp, 1);
+          console.log(arr);
+        }
+
+        else if (randSq == ""){
+          $(randInt).html(comp);
+          var deleteIndexComp = arr.indexOf(randInt);
+          arr.splice(deleteIndexComp, 1);
+        }
+    }
+    }
+
+    function checkWin(user, comp){
+      var won = false;
+      var tL = $.trim($("#tL").text());
+      var tM = $.trim($("#tM").text());
+      var tR = $.trim($("#tR").text());
+      var mL = $.trim($("#mL").text());
+      var mM = $.trim($("#mM").text());
+      var mR = $.trim($("#mR").text());
+      var bL = $.trim($("#bL").text());
+      var bM = $.trim($("#bM").text());
+      var bR = $.trim($("#bR").text());
+      if (tL == user && tM == user && tR == user){
+        alert("You won!");
+        location.reload();
+        won = true;
+      }
+      if (mL == user && mM == user && mR == user){
+        alert("You won!");
+        location.reload();
+        won = true;
+      }
+      if (bL == user && bM == user && bR == user){
+        alert("You won!");
+        location.reload();
+        won = true;
+      }
+      if (tL == user && mL == user && bL == user){
+        alert("You won!");
+        location.reload();
+        won = true;
+      }
+      if (tM == user && mM == user && bM == user){
+        alert("You won!");
+        location.reload();
+        won = true;
+      }
+      if (tR == user && mR == user && bR == user){
+        alert("You won!");
+        location.reload();
+        won = true;
+      }
+      if (tL == user && mM == user && bR == user){
+        alert("You won!");
+        location.reload();
+        won = true;
+      }
+      if (tR == user && mM == user && bL == user){
+        alert("You won!");
+        location.reload();
+        won = true;
+      }
+      if (tL == comp && tM == comp && tR == comp){
+        alert("You lost!");
+        location.reload();
+        won = true;
+      }
+      if (mL == comp && mM == comp && mR == comp){
+        alert("You lost!");
+        location.reload();
+        won = true;
+      }
+      if (bL == comp && bM == comp && bR == comp){
+        alert("You lost!");
+        location.reload();
+        won = true;
+      }
+      if (tL == comp && mL == comp && bL == comp){
+        alert("You lost!");
+        location.reload();
+        won = true;
+      }
+      if (tM == comp && mM == comp && bM == comp){
+        alert("You lost!");
+        location.reload();
+        won = true;
+      }
+      if (tR == comp && mR == comp && bR == comp){
+        alert("You lost!");
+        location.reload();
+        won = true;
+      }
+      if (tL == comp && mM == comp && bR == comp){
+        alert("You lost!");
+        location.reload();
+        won = true;
+      }
+      if (tR == comp && mM == comp && bL == comp){
+        alert("You lost!");
+        location.reload();
+        won = true;
+      }
+      return won;
+    }
+    function checkTie(){
+      if (checkWin(user, comp) == false && arr.length == 1){
+        console.log("checkTie");
+        alert("You tied!");
+        location.reload();
+      }
+    }
+
+    function eachMove(divId, buttonId, array){
+      userTurn(divId, buttonId, array);
+      setTimeout(function(){
+      compTurn();
+    }, 300)
+      checkWin(user, comp);
+      setTimeout(function(){
+      checkTie();
+    }, 500)
+    }
+
+
+
+    $("#topLeft").on("click", function(){
+      eachMove("#tL", "#topLeft", arr);
+    })
+
+    $("#topMiddle").on("click", function(){
+      eachMove("#tM", "#topMiddle", arr);
+    })
+    $("#topRight").on("click", function(){
+      eachMove("#tR", "#topRight", arr);
+    })
+    $("#midLeft").on("click", function(){
+      eachMove("#mL", "#midLeft", arr);
+    })
+    $("#midMiddle").on("click", function(){
+      eachMove("#mM", "#midMiddle", arr);
+    })
+    $("#midRight").on("click", function(){
+      eachMove("#mR", "#midRight", arr);
+    })
+    $("#bottomLeft").on("click", function(){
+      eachMove("#bL", "#bottomLeft", arr);
+    })
+    $("#bottomMiddle").on("click", function(){
+      eachMove("#bM", "#bottomMiddle", arr);
+    })
+    $("#bottomRight").on("click", function(){
+      eachMove("#bR", "#bottomRight", arr);
+    })
+
+  });
+  </script>
+<div id="dialog" title="X or O?">
+</div>
+  <div id="bg">
+    <button class="square" id="topLeft">
+      <div class="XO" id="tL">
+      <div>
+    </button>
+    <button class="square" id="topMiddle">
+      <div class="XO" id="tM">
+      <div>
+    </button>
+    <button class="square" id="topRight">
+      <div class="XO" id="tR">
+      <div>
+    </button>
+    <button class="square" id="midLeft">
+      <div class="XO" id="mL">
+      <div>
+    </button>
+    <button class="square" id="midMiddle">
+      <div class="XO" id="mM">
+      <div>
+    </button>
+    <button class="square" id="midRight">
+      <div class="XO" id="mR">
+      <div>
+    </button>
+    <button class="square" id="bottomLeft">
+      <div class="XO" id="bL">
+      <div>
+    </button>
+    <button class="square" id="bottomMiddle">
+      <div class="XO" id="bM">
+      <div>
+    </button>
+    <button class="square" id="bottomRight">
+      <div class="XO" id="bR">
+      <div>
+    </button>
+  </div>
+</body>
+</html>
