@@ -12,18 +12,18 @@
 <body>
   <style>
   body {
-    background-color: #282828;
+    background-color: #8B0C09;
     padding-top: 50px;
   }
   #bg {
     height: 600px;
     width: 600px;
-    background-color: #d6e5ff;
+    background-color: #FBFBFF;
     margin: 0 auto;
 
   }
   .square {
-    background-color: #282828;
+    background-color: #01BAEF;
     height: 180px;
     width: 180px;
     float: left;
@@ -36,11 +36,23 @@
     text-align: center;
     line-height: 50px;
     font-family: 'Quicksand', sans-serif;
-    color: #ededed;
+    color: #0B4F6C;
   }
   button {
     outline:none;
     border-style:none;
+  }
+
+  footer {
+    color: white;
+    text-align: center;
+    font-family: Helvetica;
+  }
+  a {
+    color: #01BAEF;
+  }
+  .no-close .ui-dialog-titlebar-close {
+  display: none;
   }
 
   </style>
@@ -52,6 +64,7 @@
 
     $( "#dialog" ).dialog({
     dialogClass: "no-close",
+    resizable: false,
     buttons: [
     {
       text: "X",
@@ -76,6 +89,11 @@
     "#tR",
     "#bL",
     "#bR"];
+
+    var edges = ["#tM",
+    "#mR",
+    "#bM",
+    "#mL"]
 
     var arr = ["#tL",
     "#tM",
@@ -123,297 +141,300 @@
           $("#mM").html(comp);
           var deleteIndexComp = arr.indexOf("#mM");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
+        }
+        else if (arr.length == 8 && mM == user){
+          var randInt = getRandomInt(0, corners.length);
+          $(corners[randInt]).html(comp);
+          var deleteIndexComp = arr.indexOf(randInt);
+          arr.splice(deleteIndexComp, 1);
+        }
+        else if (arr.length == 8 && tM == user){
+          $("#bL").html(comp);
+          var deleteIndexComp = arr.indexOf("#bL");
+          arr.splice(deleteIndexComp, 1);
+        }
+        else if (arr.length == 8 && mR == user){
+          $("#tL").html(comp);
+          var deleteIndexComp = arr.indexOf("#tL");
+          arr.splice(deleteIndexComp, 1);
+        }
+        else if (arr.length == 8 && bM == user){
+          $("#tR").html(comp);
+          var deleteIndexComp = arr.indexOf("#tR");
+          arr.splice(deleteIndexComp, 1);
+        }
+        else if (arr.length == 8 && mL == user){
+          $("#bR").html(comp);
+          var deleteIndexComp = arr.indexOf("#bR");
+          arr.splice(deleteIndexComp, 1);
+        }
+        else if (arr.length == 6 && mM == user && tR == user && bL == comp){
+          $("#tL").html(comp);
+          var deleteIndexComp = arr.indexOf("#tL");
+          arr.splice(deleteIndexComp, 1);
+        }
+        else if (arr.length == 6 && mM == user && bR == user && tL == comp){
+          $("#tR").html(comp);
+          var deleteIndexComp = arr.indexOf("#tR");
+          arr.splice(deleteIndexComp, 1);
+        }
+        else if (arr.length == 6 && mM == user && bL == user && tR == comp){
+          $("#tL").html(comp);
+          var deleteIndexComp = arr.indexOf("#tL");
+          arr.splice(deleteIndexComp, 1);
+        }
+        else if (arr.length == 6 && mM == user && tL == user && bR == comp){
+          $("#bL").html(comp);
+          var deleteIndexComp = arr.indexOf("#bL");
+          arr.splice(deleteIndexComp, 1);
+        }
+        else if (arr.length == 6 && mM == comp && ((tL == user && bR == user)||(tR == user && bL == user))){
+          var randInt = getRandomInt(0, edges.length);
+          $(edges[randInt]).html(comp);
+          var deleteIndexComp = arr.indexOf(randInt);
+          arr.splice(deleteIndexComp, 1);
         }
         else if(tL == comp && tR == comp && tM == ""){
           $("#tM").html(comp);
           var deleteIndexComp = arr.indexOf("#tM");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(tL == comp && tM == comp && tR == ""){
           $("#tR").html(comp);
           var deleteIndexComp = arr.indexOf("#tR");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(tR == comp && tM == comp && tL == ""){
           $("#tL").html(comp);
           var deleteIndexComp = arr.indexOf("#tL");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(mL == comp && mR == comp && mM == ""){
           $("#mM").html(comp);
           var deleteIndexComp = arr.indexOf("#mM");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(mL == comp && mM == comp && mR == ""){
           $("#mR").html(comp);
           var deleteIndexComp = arr.indexOf("#mR");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(mR == comp && mM == comp && mL == ""){
           $("#mL").html(comp);
           var deleteIndexComp = arr.indexOf("#mL");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(bL == comp && bR == comp && bM == ""){
           $("#bM").html(comp);
           var deleteIndexComp = arr.indexOf("#bM");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(bL == comp && bM == comp && bR == ""){
           $("#bR").html(comp);
           var deleteIndexComp = arr.indexOf("#bR");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if (bR == comp && bM == comp && bL == ""){
           $("#bL").html(comp);
           var deleteIndexComp = arr.indexOf("#bL");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(tL == comp && mL == comp && bL == ""){
           $("#bL").html(comp);
           var deleteIndexComp = arr.indexOf("#bL");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(mL == comp && bL == comp && tL == ""){
           $("#tL").html(comp);
           var deleteIndexComp = arr.indexOf("#tL");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if (tL == comp && bL == comp && mL == ""){
           $("#mL").html(comp);
           var deleteIndexComp = arr.indexOf("#mL");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(tM == comp && mM == comp && bM == ""){
           $("#bM").html(comp);
           var deleteIndexComp = arr.indexOf("#bM");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(mM == comp && bM == comp && tM == ""){
           $("#tM").html(comp);
           var deleteIndexComp = arr.indexOf("#tM");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if (tM == comp && bM == comp && mM == ""){
           $("#mM").html(comp);
           var deleteIndexComp = arr.indexOf("#mM");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(tR == comp && mR == comp && bR == ""){
           $("#bR").html(comp);
           var deleteIndexComp = arr.indexOf("#bR");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         //cope here
         else if(bR == comp && mR == comp && tR == ""){
           $("#tR").html(comp);
           var deleteIndexComp = arr.indexOf("#tR");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(tR == comp && bR == comp && mR == ""){
           $("#mR").html(comp);
           var deleteIndexComp = arr.indexOf("#bR");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(tL == comp && mM == comp && bR == ""){
           $("#bR").html(comp);
           var deleteIndexComp = arr.indexOf("#bR");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if (bM == comp && bR == comp && tL == ""){
           $("#tL").html(comp);
           var deleteIndexComp = arr.indexOf("#tL");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if (tL == comp && bR == comp && mM == ""){
           $("#mM").html(comp);
           var deleteIndexComp = arr.indexOf("#mM");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(tR == comp && mM == comp && bL == ""){
           $("#bL").html(comp);
           var deleteIndexComp = arr.indexOf("#bL");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if (mM == comp && bL == comp && tR == ""){
           $("#tR").html(comp);
           var deleteIndexComp = arr.indexOf("#tR");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if (tR == comp && bL == comp && mM == ""){
           $("#mM").html(comp);
           var deleteIndexComp = arr.indexOf("#mM");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         //start of defence
         else if(tL == user && tR == user && tM == ""){
           $("#tM").html(comp);
           var deleteIndexComp = arr.indexOf("#tM");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(tL == user && tM == user && tR == ""){
           $("#tR").html(comp);
           var deleteIndexComp = arr.indexOf("#tR");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(tR == user && tM == user && tL == ""){
           $("#tL").html(comp);
           var deleteIndexComp = arr.indexOf("#tL");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(mL == user && mR == user && mM == ""){
           $("#mM").html(comp);
           var deleteIndexComp = arr.indexOf("#mM");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(mL == user && mM == user && mR == ""){
           $("#mR").html(comp);
           var deleteIndexComp = arr.indexOf("#mR");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(mR == user && mM == user && mL == ""){
           $("#mL").html(comp);
           var deleteIndexComp = arr.indexOf("#mL");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(bL == user && bR == user && bM == ""){
           $("#bM").html(comp);
           var deleteIndexComp = arr.indexOf("#bM");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(bL == user && bM == user && bR == ""){
           $("#bR").html(comp);
           var deleteIndexComp = arr.indexOf("#bR");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if (bR == user && bM == user && bL == ""){
           $("#bL").html(comp);
           var deleteIndexComp = arr.indexOf("#bL");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(tL == user && mL == user && bL == ""){
           $("#bL").html(comp);
           var deleteIndexComp = arr.indexOf("#bL");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(mL == user && bL == user && tL == ""){
           $("#tL").html(comp);
           var deleteIndexComp = arr.indexOf("#tL");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if (tL == user && bL == user && mL == ""){
           $("#mL").html(comp);
           var deleteIndexComp = arr.indexOf("#mL");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(tM == user && mM == user && bM == ""){
           $("#bM").html(comp);
           var deleteIndexComp = arr.indexOf("#bM");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(mM == user && bM == user && tM == ""){
           $("#tM").html(comp);
           var deleteIndexComp = arr.indexOf("#tM");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if (tM == user && bM == user && mM == ""){
           $("#mM").html(comp);
           var deleteIndexComp = arr.indexOf("#mM");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(tR == user && mR == user && bR == ""){
           $("#bR").html(comp);
           var deleteIndexComp = arr.indexOf("#bR");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(bR == user && mR == user && tR == ""){
           $("#tR").html(comp);
           var deleteIndexComp = arr.indexOf("#tR");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(tR == user && bR == user && mR == ""){
           $("#mR").html(comp);
           var deleteIndexComp = arr.indexOf("#bR");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(tL == user && mM == user && bR == ""){
           $("#bR").html(comp);
           var deleteIndexComp = arr.indexOf("#bR");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if (bM == user && bR == user && tL == ""){
           $("#tL").html(comp);
           var deleteIndexComp = arr.indexOf("#tL");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if (tL == user && bR == user && mM == ""){
           $("#mM").html(comp);
           var deleteIndexComp = arr.indexOf("#mM");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if(tR == user && mM == user && bL == ""){
           $("#bL").html(comp);
           var deleteIndexComp = arr.indexOf("#bL");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if (mM == user && bL == user && tR == ""){
           $("#tR").html(comp);
           var deleteIndexComp = arr.indexOf("#tR");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
         else if (tR == user && bL == user && mM == ""){
           $("#mM").html(comp);
           var deleteIndexComp = arr.indexOf("#mM");
           arr.splice(deleteIndexComp, 1);
-          console.log(arr);
         }
 
         else if (randSq == ""){
@@ -527,10 +548,10 @@
 
     function eachMove(divId, buttonId, array){
       userTurn(divId, buttonId, array);
-      setTimeout(function(){
       compTurn();
-    }, 300)
+      setTimeout(function(){
       checkWin(user, comp);
+    }, 500)
       setTimeout(function(){
       checkTie();
     }, 500)
@@ -609,5 +630,9 @@
       <div>
     </button>
   </div>
+  <br>
+  <footer>
+    Coded by <a href="https://github.com/cazwazacz/" target="_blank">Allan Wazacz</a>.
+  </footer>
 </body>
 </html>
